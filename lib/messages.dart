@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:stripe/src/messages/converters.dart';
+import 'package:stripe/src/messages/enums/collection_method.dart';
+import 'package:stripe/src/messages/enums/invoice_status.dart';
 
 part 'messages.g.dart';
 part 'src/messages/_message.dart';
@@ -15,7 +17,13 @@ part 'src/messages/portal_session.dart';
 part 'src/messages/price.dart';
 part 'src/messages/product.dart';
 part 'src/messages/refund.dart';
+part 'src/messages/invoice.dart';
+part 'src/messages/invoice_line_item.dart';
+part 'src/messages/create_subscription_item_inline.dart';
 part 'src/messages/shipping_specification.dart';
+part 'src/messages/requests/create_invoice.dart';
+part 'src/messages/requests/update_invoice.dart';
+part 'src/messages/requests/list_invoices.dart';
 part 'src/messages/requests/create_checkout_session.dart';
 part 'src/messages/requests/create_customer.dart';
 part 'src/messages/requests/create_payment_intent.dart';

@@ -1,6 +1,7 @@
 library stripe;
 
 import 'package:meta/meta.dart';
+import 'package:stripe/src/resources/invoice.dart';
 
 import 'src/client.dart';
 import 'src/resources/balance_transaction.dart';
@@ -61,6 +62,9 @@ class Stripe {
   /// https://stripe.com/docs/api/balance_transactions
   final BalanceTransactionResource balanceTransaction;
 
+  /// https://stripe.com/docs/api/invoices
+  final InvoiceResource invoice;
+
   factory Stripe(String apiKey) {
     final client = Client(apiKey: apiKey);
     return Stripe.withClient(client);
@@ -77,5 +81,6 @@ class Stripe {
         product = ProductResource(client),
         subscription = SubscriptionResource(client),
         charge = ChargeResource(client),
-        balanceTransaction = BalanceTransactionResource(client);
+        balanceTransaction = BalanceTransactionResource(client),
+        invoice = InvoiceResource(client);
 }

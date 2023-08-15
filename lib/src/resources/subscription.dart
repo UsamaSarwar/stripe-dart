@@ -13,8 +13,9 @@ class SubscriptionResource extends Resource<Subscription> {
     return Subscription.fromJson(response);
   }
 
-  Future<DataList<Subscription>> list(
-      [ListSubscriptionsRequest? request]) async {
+  Future<DataList<Subscription>> list([
+    ListSubscriptionsRequest? request,
+  ]) async {
     final map = await get('subscriptions', queryParameters: request?.toJson());
     return DataList<Subscription>.fromJson(
         map, (value) => Subscription.fromJson(value as Map<String, dynamic>));

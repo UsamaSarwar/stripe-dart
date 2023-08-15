@@ -48,6 +48,9 @@ class CreateSubscriptionRequest {
   /// Subscriptions with collection_method=send_invoice are automatically activated regardless of the first invoice status.
   final PaymentBehavior? paymentBehavior;
 
+  /// A list of up to 20 subscription items, each with an attached price.
+  final List<CreateSubscriptionItemInline> items;
+
   CreateSubscriptionRequest({
     required this.customer,
     this.cancelAtPeriodEnd,
@@ -56,6 +59,7 @@ class CreateSubscriptionRequest {
     this.description,
     this.metadata,
     this.paymentBehavior,
+    required this.items,
   });
 
   factory CreateSubscriptionRequest.fromJson(Map<String, dynamic> json) =>
