@@ -1118,6 +1118,50 @@ Map<String, dynamic> _$UpdateCustomerRequestToJson(
   return val;
 }
 
+CreateSubscriptionRequest _$CreateSubscriptionRequestFromJson(
+        Map<String, dynamic> json) =>
+    CreateSubscriptionRequest(
+      customer: json['customer'] as String,
+      cancelAtPeriodEnd: json['cancel_at_period_end'] as bool?,
+      currency: json['currency'] as String?,
+      defaultPaymentMethod: json['default_payment_method'] as String?,
+      description: json['description'] as String?,
+      metadata: (json['metadata'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      paymentBehavior: $enumDecodeNullable(
+          _$PaymentBehaviorEnumMap, json['payment_behavior']),
+    );
+
+Map<String, dynamic> _$CreateSubscriptionRequestToJson(
+    CreateSubscriptionRequest instance) {
+  final val = <String, dynamic>{
+    'customer': instance.customer,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('cancel_at_period_end', instance.cancelAtPeriodEnd);
+  writeNotNull('currency', instance.currency);
+  writeNotNull('default_payment_method', instance.defaultPaymentMethod);
+  writeNotNull('description', instance.description);
+  writeNotNull('metadata', instance.metadata);
+  writeNotNull(
+      'payment_behavior', _$PaymentBehaviorEnumMap[instance.paymentBehavior]);
+  return val;
+}
+
+const _$PaymentBehaviorEnumMap = {
+  PaymentBehavior.allowIncomplete: 'allow_incomplete',
+  PaymentBehavior.errorIfIncomplete: 'error_if_incomplete',
+  PaymentBehavior.pendingIfIncomplete: 'pending_if_incomplete',
+  PaymentBehavior.defaultIncomplete: 'default_incomplete',
+};
+
 Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
       object: $enumDecode(_$_SubscriptionObjectEnumMap, json['object']),
       id: json['id'] as String,
