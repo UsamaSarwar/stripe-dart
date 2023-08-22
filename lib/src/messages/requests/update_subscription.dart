@@ -2,15 +2,9 @@ part of '../../../messages.dart';
 
 /// https://stripe.com/docs/api/subscriptions/create
 @JsonSerializable()
-class CreateSubscriptionRequest {
-  /// The identifier of the customer to subscribe.
-  final String customer;
-
+class UpdateSubscriptionRequest {
   /// Boolean indicating whether this subscription should cancel at the end of the current period.
   final bool? cancelAtPeriodEnd;
-
-  /// Three-letter ISO currency code, in lowercase. Must be a supported currency.
-  final String? currency;
 
   /// ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over default_source. If neither are set, invoices will use the customer’s invoice_settings.default_payment_method or default_source.
   final String? defaultPaymentMethod;
@@ -34,22 +28,20 @@ class CreateSubscriptionRequest {
   /// Subscriptions with collection_method=send_invoice are automatically activated regardless of the first invoice status.
   final PaymentBehavior? paymentBehavior;
 
-  /// A list of up to 20 subscription items, each with an attached price.
-  final List<CreateSubscriptionItemInline> items;
+  final String id;
 
-  CreateSubscriptionRequest({
-    required this.customer,
+  UpdateSubscriptionRequest({
+    required this.id,
     this.cancelAtPeriodEnd,
-    this.currency,
     this.defaultPaymentMethod,
     this.description,
     this.metadata,
     this.paymentBehavior,
-    required this.items,
   });
 
-  factory CreateSubscriptionRequest.fromJson(Map<String, dynamic> json) =>
-      _$CreateSubscriptionRequestFromJson(json);
+  factory UpdateSubscriptionRequest.fromJson(Map<String, dynamic> json) =>
+      _$UpdateSubscriptionRequestFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CreateSubscriptionRequestToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$UpdateSubscriptionRequestToJson(this)..remove('id');
 }

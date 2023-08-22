@@ -77,6 +77,9 @@ class Subscription extends Message {
   /// format.
   final Map<String, dynamic>? metadata;
 
+  /// ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over default_source. If neither are set, invoices will use the customer’s invoice_settings.default_payment_method or default_source.
+  final String? defaultPaymentMethod;
+
   Subscription({
     required this.object,
     required this.id,
@@ -87,6 +90,7 @@ class Subscription extends Message {
     required this.currentPeriodStart,
     required this.currentPeriodEnd,
     this.metadata,
+    this.defaultPaymentMethod,
   });
 
   factory Subscription.fromJson(Map<String, dynamic> json) =>

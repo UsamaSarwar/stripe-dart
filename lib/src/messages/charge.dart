@@ -43,10 +43,14 @@ class PaymentMethodDetails {
 class PaymentMethodDetailsCard {
   final String brand;
   final String last4;
+  final int expMonth;
+  final int expYear;
 
   PaymentMethodDetailsCard({
     required this.brand,
     required this.last4,
+    required this.expMonth,
+    required this.expYear,
   });
 
   factory PaymentMethodDetailsCard.fromJson(Map<String, dynamic> json) =>

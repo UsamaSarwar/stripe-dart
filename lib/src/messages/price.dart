@@ -29,7 +29,7 @@ class Price extends Message {
 
   /// The unit amount in cents to be charged, represented as a whole integer if
   /// possible. Only set if billing_scheme=per_unit.
-  final int unitAmount;
+  final int? unitAmount;
 
   Price({
     required this.object,
@@ -38,7 +38,7 @@ class Price extends Message {
     required this.currency,
     required this.product,
     required this.type,
-    required this.unitAmount,
+    this.unitAmount,
   });
 
   factory Price.fromJson(Map<String, dynamic> json) => _$PriceFromJson(json);
