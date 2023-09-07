@@ -22,6 +22,7 @@ import 'src/resources/subscription.dart';
 
 export 'messages.dart';
 export 'src/webhook.dart';
+export 'src/messages/enums/enums.dart';
 
 /// [Stripe] is the Class that provides the Interface for external calls via the
 /// Stripe API.
