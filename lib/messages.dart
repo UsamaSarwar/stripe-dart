@@ -30,6 +30,7 @@ part 'src/messages/invoice_line_item.dart';
 part 'src/messages/usage_record.dart';
 part 'src/messages/create_subscription_item_inline.dart';
 part 'src/messages/period.dart';
+part 'src/messages/account_login_link.dart';
 part 'src/messages/usage_record_summary.dart';
 part 'src/messages/shipping_specification.dart';
 part 'src/messages/requests/create_invoice.dart';

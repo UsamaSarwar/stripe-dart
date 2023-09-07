@@ -633,6 +633,7 @@ const _$_RefundObjectEnumMap = {
 
 Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
       object: $enumDecode(_$_InvoiceObjectEnumMap, json['object']),
+      created: const TimestampConverter().fromJson(json['created'] as int),
       id: json['id'] as String,
       charge: json['charge'] as String?,
       currency: json['currency'] as String,
@@ -648,9 +649,13 @@ Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
       status: $enumDecode(_$InvoiceStatusEnumMap, json['status']),
       total: json['total'] as int?,
       subscription: json['subscription'] as String?,
+      dueDate: _$JsonConverterFromJson<int, DateTime>(
+          json['due_date'], const TimestampConverter().fromJson),
       lines: DataList<InvoiceLineItem>.fromJson(
           json['lines'] as Map<String, dynamic>,
           (value) => InvoiceLineItem.fromJson(value as Map<String, dynamic>)),
+      number: json['number'] as String?,
+      invoicePdf: json['invoice_pdf'] as String?,
     );
 
 Map<String, dynamic> _$InvoiceToJson(Invoice instance) {
@@ -686,6 +691,13 @@ Map<String, dynamic> _$InvoiceToJson(Invoice instance) {
   val['lines'] = instance.lines.toJson(
     (value) => value.toJson(),
   );
+  writeNotNull(
+      'due_date',
+      _$JsonConverterToJson<int, DateTime>(
+          instance.dueDate, const TimestampConverter().toJson));
+  val['created'] = const TimestampConverter().toJson(instance.created);
+  writeNotNull('number', instance.number);
+  writeNotNull('invoice_pdf', instance.invoicePdf);
   return val;
 }
 
@@ -912,6 +924,20 @@ Map<String, dynamic> _$PeriodToJson(Period instance) {
   return val;
 }
 
+AccountLoginLink _$AccountLoginLinkFromJson(Map<String, dynamic> json) =>
+    AccountLoginLink(
+      object: json['object'] as String,
+      url: json['url'] as String,
+      created: const TimestampConverter().fromJson(json['created'] as int),
+    );
+
+Map<String, dynamic> _$AccountLoginLinkToJson(AccountLoginLink instance) =>
+    <String, dynamic>{
+      'object': instance.object,
+      'url': instance.url,
+      'created': const TimestampConverter().toJson(instance.created),
+    };
+
 UsageRecordSummary _$UsageRecordSummaryFromJson(Map<String, dynamic> json) =>
     UsageRecordSummary(
       object: json['object'] as String,
@@ -1084,6 +1110,8 @@ ListInvoicesRequest _$ListInvoicesRequestFromJson(Map<String, dynamic> json) =>
       subscription: json['subscription'] as String?,
       customer: json['customer'] as String?,
       status: $enumDecodeNullable(_$InvoiceStatusEnumMap, json['status']),
+      startingAfter: json['starting_after'] as String?,
+      limit: json['limit'] as int?,
     );
 
 Map<String, dynamic> _$ListInvoicesRequestToJson(ListInvoicesRequest instance) {
@@ -1098,6 +1126,8 @@ Map<String, dynamic> _$ListInvoicesRequestToJson(ListInvoicesRequest instance) {
   writeNotNull('subscription', instance.subscription);
   writeNotNull('customer', instance.customer);
   writeNotNull('status', _$InvoiceStatusEnumMap[instance.status]);
+  writeNotNull('starting_after', instance.startingAfter);
+  writeNotNull('limit', instance.limit);
   return val;
 }
 

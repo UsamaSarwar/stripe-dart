@@ -14,4 +14,12 @@ class AccountsResource extends Resource<Account> {
 
     return Account.fromJson(response);
   }
+
+  Future<AccountLoginLink> createLoginLink(String id) async {
+    final response = await post(
+      'accounts/$id/login_links',
+    );
+
+    return AccountLoginLink.fromJson(response);
+  }
 }
