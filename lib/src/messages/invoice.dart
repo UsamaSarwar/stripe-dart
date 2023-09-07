@@ -51,8 +51,23 @@ class Invoice extends Message {
   /// The individual line items that make up the invoice. lines is sorted as follows: (1) pending invoice items (including prorations) in reverse chronological order, (2) subscription items in reverse chronological order, and (3) invoice items added after invoice creation in chronological order.
   final DataList<InvoiceLineItem> lines;
 
+  /// The date on which payment for this invoice is due. This value will be null for invoices where collection_method=charge_automatically.
+  @TimestampConverter()
+  final DateTime? dueDate;
+
+  /// Time at which the object was created. Measured in seconds since the Unix epoch.
+  @TimestampConverter()
+  final DateTime created;
+
+  /// A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer’s unique invoice_prefix if it is specified.
+  final String? number;
+
+  /// The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
+  final String? invoicePdf;
+
   Invoice({
     required this.object,
+    required this.created,
     required this.id,
     this.charge,
     required this.currency,
@@ -66,7 +81,10 @@ class Invoice extends Message {
     required this.status,
     this.total,
     this.subscription,
+    this.dueDate,
     required this.lines,
+    this.number,
+    this.invoicePdf,
   });
 
   factory Invoice.fromJson(Map<String, dynamic> json) =>

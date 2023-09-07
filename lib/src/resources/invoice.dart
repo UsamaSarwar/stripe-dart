@@ -37,4 +37,24 @@ class InvoiceResource extends Resource<Invoice> {
       (value) => Invoice.fromJson(value as Map<String, dynamic>),
     );
   }
+
+  Future<Invoice> markAsVoid(String invoiceId) async {
+    final response = await post(
+      'invoices/$invoiceId/void',
+    );
+
+    return Invoice.fromJson(
+      response,
+    );
+  }
+
+  Future<Invoice> finalize(String invoiceId) async {
+    final response = await post(
+      'invoices/$invoiceId/finalize',
+    );
+
+    return Invoice.fromJson(
+      response,
+    );
+  }
 }

@@ -159,6 +159,7 @@ CheckoutSession _$CheckoutSessionFromJson(Map<String, dynamic> json) =>
       clientReferenceId: json['client_reference_id'] as String?,
       customer: json['customer'] as String?,
       paymentIntent: json['payment_intent'] as String?,
+      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$CheckoutSessionToJson(CheckoutSession instance) {
@@ -179,6 +180,7 @@ Map<String, dynamic> _$CheckoutSessionToJson(CheckoutSession instance) {
   val['payment_method_types'] = instance.paymentMethodTypes
       .map((e) => _$PaymentMethodTypeEnumMap[e]!)
       .toList();
+  writeNotNull('url', instance.url);
   return val;
 }
 
@@ -699,6 +701,57 @@ const _$InvoiceStatusEnumMap = {
   InvoiceStatus.uncollectible: 'uncollectible',
 };
 
+Account _$AccountFromJson(Map<String, dynamic> json) => Account(
+      object: json['object'] as String,
+      id: json['id'] as String,
+      type: $enumDecode(_$AccountTypeEnumMap, json['type']),
+      country: json['country'] as String?,
+      email: json['email'] as String?,
+      chargesEnabled: json['charges_enabled'] as bool? ?? false,
+      metadata: json['metadata'] as Map<String, dynamic>?,
+    );
+
+Map<String, dynamic> _$AccountToJson(Account instance) {
+  final val = <String, dynamic>{
+    'object': instance.object,
+    'id': instance.id,
+    'type': _$AccountTypeEnumMap[instance.type]!,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('country', instance.country);
+  writeNotNull('email', instance.email);
+  val['charges_enabled'] = instance.chargesEnabled;
+  writeNotNull('metadata', instance.metadata);
+  return val;
+}
+
+const _$AccountTypeEnumMap = {
+  AccountType.custom: 'custom',
+  AccountType.express: 'express',
+  AccountType.standard: 'standard',
+};
+
+AccountLink _$AccountLinkFromJson(Map<String, dynamic> json) => AccountLink(
+      expiresAt: const TimestampConverter().fromJson(json['expires_at'] as int),
+      created: const TimestampConverter().fromJson(json['created'] as int),
+      object: json['object'] as String,
+      url: json['url'] as String,
+    );
+
+Map<String, dynamic> _$AccountLinkToJson(AccountLink instance) =>
+    <String, dynamic>{
+      'expires_at': const TimestampConverter().toJson(instance.expiresAt),
+      'created': const TimestampConverter().toJson(instance.created),
+      'object': instance.object,
+      'url': instance.url,
+    };
+
 PaymentMethod _$PaymentMethodFromJson(Map<String, dynamic> json) =>
     PaymentMethod(
       metadata: json['metadata'] as Map<String, dynamic>?,
@@ -723,6 +776,36 @@ Map<String, dynamic> _$PaymentMethodToJson(PaymentMethod instance) {
   val['id'] = instance.id;
   writeNotNull('customer', instance.customer);
   writeNotNull('card', instance.card?.toJson());
+  return val;
+}
+
+InvoiceItem _$InvoiceItemFromJson(Map<String, dynamic> json) => InvoiceItem(
+      id: json['id'] as String,
+      amount: json['amount'] as int?,
+      quantity: json['quantity'] as int?,
+      invoice: json['invoice'] as String?,
+      description: json['description'] as String?,
+      currency: json['currency'] as String?,
+      unitAmount: _readUnitAmountFromPrice(json, 'unit_amount') as int?,
+    );
+
+Map<String, dynamic> _$InvoiceItemToJson(InvoiceItem instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('amount', instance.amount);
+  writeNotNull('quantity', instance.quantity);
+  writeNotNull('invoice', instance.invoice);
+  writeNotNull('description', instance.description);
+  writeNotNull('currency', instance.currency);
+  writeNotNull('unit_amount', instance.unitAmount);
   return val;
 }
 
@@ -900,6 +983,11 @@ CreateInvoiceRequest _$CreateInvoiceRequestFromJson(
       collectionMethod: $enumDecodeNullable(
           _$CollectionMethodEnumMap, json['collection_method']),
       autoAdvance: json['auto_advance'] as bool?,
+      transferData: json['transfer_data'] == null
+          ? null
+          : CreateInvoiceTransferData.fromJson(
+              json['transfer_data'] as Map<String, dynamic>),
+      dueDate: json['due_date'] as int?,
     );
 
 Map<String, dynamic> _$CreateInvoiceRequestToJson(
@@ -920,6 +1008,8 @@ Map<String, dynamic> _$CreateInvoiceRequestToJson(
   writeNotNull('auto_advance', instance.autoAdvance);
   writeNotNull('customer', instance.customer);
   writeNotNull('subscription', instance.subscription);
+  writeNotNull('transfer_data', instance.transferData?.toJson());
+  writeNotNull('due_date', instance.dueDate);
   return val;
 }
 
@@ -1618,6 +1708,87 @@ Map<String, dynamic> _$AttachPaymentMethodRequestToJson(
       'customer': instance.customer,
       'id': instance.id,
     };
+
+CreateAccountLinkRequest _$CreateAccountLinkRequestFromJson(
+        Map<String, dynamic> json) =>
+    CreateAccountLinkRequest(
+      account: json['account'] as String,
+      refreshUrl: json['refresh_url'] as String,
+      returnUrl: json['return_url'] as String,
+      type: $enumDecode(_$AccountLinkTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$CreateAccountLinkRequestToJson(
+        CreateAccountLinkRequest instance) =>
+    <String, dynamic>{
+      'account': instance.account,
+      'refresh_url': instance.refreshUrl,
+      'return_url': instance.returnUrl,
+      'type': _$AccountLinkTypeEnumMap[instance.type]!,
+    };
+
+const _$AccountLinkTypeEnumMap = {
+  AccountLinkType.accountOnboarding: 'account_onboarding',
+  AccountLinkType.accountUpdate: 'account_update',
+};
+
+CreateInvoiceItemRequest _$CreateInvoiceItemRequestFromJson(
+        Map<String, dynamic> json) =>
+    CreateInvoiceItemRequest(
+      customer: json['customer'] as String,
+      unitAmountDecimal: (json['unit_amount_decimal'] as num?)?.toDouble(),
+      currency: json['currency'] as String?,
+      description: json['description'] as String?,
+      invoice: json['invoice'] as String?,
+      quantity: json['quantity'] as int?,
+    );
+
+Map<String, dynamic> _$CreateInvoiceItemRequestToJson(
+    CreateInvoiceItemRequest instance) {
+  final val = <String, dynamic>{
+    'customer': instance.customer,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('unit_amount_decimal', instance.unitAmountDecimal);
+  writeNotNull('currency', instance.currency);
+  writeNotNull('description', instance.description);
+  writeNotNull('invoice', instance.invoice);
+  writeNotNull('quantity', instance.quantity);
+  return val;
+}
+
+CreateAccountRequest _$CreateAccountRequestFromJson(
+        Map<String, dynamic> json) =>
+    CreateAccountRequest(
+      type: $enumDecode(_$AccountTypeEnumMap, json['type']),
+      country: json['country'] as String?,
+      email: json['email'] as String?,
+      metadata: json['metadata'] as Map<String, dynamic>?,
+    );
+
+Map<String, dynamic> _$CreateAccountRequestToJson(
+    CreateAccountRequest instance) {
+  final val = <String, dynamic>{
+    'type': _$AccountTypeEnumMap[instance.type]!,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('country', instance.country);
+  writeNotNull('email', instance.email);
+  writeNotNull('metadata', instance.metadata);
+  return val;
+}
 
 Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
       object: $enumDecode(_$_SubscriptionObjectEnumMap, json['object']),

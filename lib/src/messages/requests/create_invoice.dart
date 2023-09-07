@@ -18,6 +18,7 @@ abstract class _InvoiceRequest {
 
   /// Controls whether Stripe performs automatic collection of the invoice. If false, the invoice’s state doesn’t automatically advance without an explicit action.
   final bool? autoAdvance;
+
   _InvoiceRequest({
     this.currency,
     this.description,
@@ -36,6 +37,12 @@ class CreateInvoiceRequest extends _InvoiceRequest {
   /// The ID of the subscription to invoice, if any. If set, the created invoice will only include pending invoice items for that subscription. The subscription’s billing cycle and regular subscription events won’t be affected.
   final String? subscription;
 
+  ///If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice’s charge. This will be unset if you POST an empty value.
+  final CreateInvoiceTransferData? transferData;
+
+  /// The date on which payment for this invoice is due. Only valid for invoices where collection_method=send_invoice. This field can only be updated on draft invoices.
+  final int? dueDate;
+
   CreateInvoiceRequest({
     this.customer,
     this.subscription,
@@ -44,6 +51,8 @@ class CreateInvoiceRequest extends _InvoiceRequest {
     Map<String, String>? metadata,
     CollectionMethod? collectionMethod,
     bool? autoAdvance,
+    this.transferData,
+    this.dueDate,
   }) : super(
           currency: currency,
           description: description,
@@ -56,4 +65,22 @@ class CreateInvoiceRequest extends _InvoiceRequest {
       _$CreateInvoiceRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateInvoiceRequestToJson(this);
+}
+
+class CreateInvoiceTransferData {
+  final String destination;
+
+  CreateInvoiceTransferData(this.destination);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'destination': destination,
+    };
+  }
+
+  factory CreateInvoiceTransferData.fromJson(Map<String, dynamic> json) {
+    return CreateInvoiceTransferData(
+      json['destination'] as String,
+    );
+  }
 }
