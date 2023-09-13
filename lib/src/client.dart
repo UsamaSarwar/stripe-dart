@@ -81,6 +81,20 @@ class Client {
     return processResponse(response);
   }
 
+  /// Makes a delete request to the Stripe API
+  Future<Map<String, dynamic>> delete(
+    final String path, {
+    String? idempotencyKey,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    final response = await dio.delete<Map<String, dynamic>>(
+      path,
+      queryParameters: queryParameters,
+      options: _createRequestOptions(idempotencyKey: idempotencyKey),
+    );
+    return processResponse(response);
+  }
+
   Options? _createRequestOptions({String? idempotencyKey}) =>
       idempotencyKey == null
           ? null

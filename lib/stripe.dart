@@ -5,6 +5,7 @@ import 'package:stripe/src/resources/account.dart';
 import 'package:stripe/src/resources/account_links.dart';
 import 'package:stripe/src/resources/invoice.dart';
 import 'package:stripe/src/resources/invoice_item.dart';
+import 'package:stripe/src/resources/subscription_item.dart';
 import 'package:stripe/src/resources/usage_record.dart';
 
 import 'src/client.dart';
@@ -86,6 +87,9 @@ class Stripe {
   /// https://stripe.com/docs/api/invoiceitems
   final InvoiceItemsResource invoiceItem;
 
+  /// https://stripe.com/docs/api/subscription_items
+  final SubscriptionItemResource subscriptionItem;
+
   factory Stripe(String apiKey) {
     final client = Client(apiKey: apiKey);
     return Stripe.withClient(client);
@@ -108,5 +112,6 @@ class Stripe {
         paymentMethod = PaymentMethodResource(client),
         account = AccountsResource(client),
         accountLink = AccountLinksResource(client),
-        invoiceItem = InvoiceItemsResource(client);
+        invoiceItem = InvoiceItemsResource(client),
+        subscriptionItem = SubscriptionItemResource(client);
 }
