@@ -272,6 +272,7 @@ Map<String, dynamic> _$DataListToJson<T>(
 
 const _$_SubListObjectEnumMap = {
   _SubListObject.list: 'list',
+  _SubListObject.searchResult: 'search_result',
 };
 
 EventData<T> _$EventDataFromJson<T>(
