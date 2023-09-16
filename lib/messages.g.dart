@@ -1863,6 +1863,29 @@ Map<String, dynamic> _$CreateInvoiceItemRequestToJson(
   return val;
 }
 
+SearchCustomersRequest _$SearchCustomersRequestFromJson(
+        Map<String, dynamic> json) =>
+    SearchCustomersRequest(
+      query: json['query'] as String,
+      limit: json['limit'] as int?,
+    );
+
+Map<String, dynamic> _$SearchCustomersRequestToJson(
+    SearchCustomersRequest instance) {
+  final val = <String, dynamic>{
+    'query': instance.query,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('limit', instance.limit);
+  return val;
+}
+
 CreateAccountRequest _$CreateAccountRequestFromJson(
         Map<String, dynamic> json) =>
     CreateAccountRequest(

@@ -54,6 +54,7 @@ part 'src/messages/requests/create_subscription.dart';
 part 'src/messages/requests/attach_payment_method.dart';
 part 'src/messages/requests/create_account_link.dart';
 part 'src/messages/requests/create_invoice_item.dart';
+part 'src/messages/requests/search_customers_request.dart';
 part 'src/messages/requests/create_account.dart';
 part 'src/messages/requests/create_subscription_item.dart';
 part 'src/messages/requests/update_subscription_item.dart';
