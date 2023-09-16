@@ -14,14 +14,14 @@ class UpdateCustomerRequest extends _CustomerRequest {
     Map<String, String>? metadata,
     String? name,
     String? paymentMethod,
-    String? phoneNumber,
+    String? phone,
   }) : super(
           description: description,
           email: email,
           metadata: metadata,
           name: name,
           paymentMethod: paymentMethod,
-          phoneNumber: phoneNumber,
+          phone: phone,
         );
 
   factory UpdateCustomerRequest.fromJson(Map<String, dynamic> json) =>

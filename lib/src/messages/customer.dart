@@ -17,6 +17,9 @@ class Customer extends Message {
   /// The customer’s email address.
   final String? email;
 
+  /// The customer’s phone number.
+  final String? phone;
+
   /// Set of key-value pairs that you can attach to an object. This can be
   /// useful for storing additional information about the object in a structured
   /// format.
@@ -32,6 +35,7 @@ class Customer extends Message {
     this.email,
     this.metadata,
     this.name,
+    this.phone,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) =>

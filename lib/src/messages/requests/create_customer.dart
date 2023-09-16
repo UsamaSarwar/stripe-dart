@@ -24,7 +24,7 @@ abstract class _CustomerRequest {
   final String? paymentMethod;
 
   /// The customer’s phone number.
-  final String? phoneNumber;
+  final String? phone;
 
   _CustomerRequest({
     this.description,
@@ -32,7 +32,7 @@ abstract class _CustomerRequest {
     this.metadata,
     this.name,
     this.paymentMethod,
-    this.phoneNumber,
+    this.phone,
   });
 }
 
@@ -44,14 +44,14 @@ class CreateCustomerRequest extends _CustomerRequest {
     Map<String, String>? metadata,
     String? name,
     String? paymentMethod,
-    String? phoneNumber,
+    String? phone,
   }) : super(
           description: description,
           email: email,
           metadata: metadata,
           name: name,
           paymentMethod: paymentMethod,
-          phoneNumber: phoneNumber,
+          phone: phone,
         );
 
   factory CreateCustomerRequest.fromJson(Map<String, dynamic> json) =>

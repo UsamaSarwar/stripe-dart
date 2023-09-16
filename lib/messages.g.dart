@@ -223,6 +223,7 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       email: json['email'] as String?,
       metadata: json['metadata'] as Map<String, dynamic>?,
       name: json['name'] as String?,
+      phone: json['phone'] as String?,
     );
 
 Map<String, dynamic> _$CustomerToJson(Customer instance) {
@@ -239,6 +240,7 @@ Map<String, dynamic> _$CustomerToJson(Customer instance) {
 
   writeNotNull('description', instance.description);
   writeNotNull('email', instance.email);
+  writeNotNull('phone', instance.phone);
   writeNotNull('metadata', instance.metadata);
   writeNotNull('name', instance.name);
   return val;
@@ -1479,7 +1481,7 @@ CreateCustomerRequest _$CreateCustomerRequestFromJson(
       ),
       name: json['name'] as String?,
       paymentMethod: json['payment_method'] as String?,
-      phoneNumber: json['phone_number'] as String?,
+      phone: json['phone'] as String?,
     );
 
 Map<String, dynamic> _$CreateCustomerRequestToJson(
@@ -1497,7 +1499,7 @@ Map<String, dynamic> _$CreateCustomerRequestToJson(
   writeNotNull('metadata', instance.metadata);
   writeNotNull('name', instance.name);
   writeNotNull('payment_method', instance.paymentMethod);
-  writeNotNull('phone_number', instance.phoneNumber);
+  writeNotNull('phone', instance.phone);
   return val;
 }
 
@@ -1690,7 +1692,7 @@ UpdateCustomerRequest _$UpdateCustomerRequestFromJson(
       ),
       name: json['name'] as String?,
       paymentMethod: json['payment_method'] as String?,
-      phoneNumber: json['phone_number'] as String?,
+      phone: json['phone'] as String?,
     );
 
 Map<String, dynamic> _$UpdateCustomerRequestToJson(
@@ -1708,7 +1710,7 @@ Map<String, dynamic> _$UpdateCustomerRequestToJson(
   writeNotNull('metadata', instance.metadata);
   writeNotNull('name', instance.name);
   writeNotNull('payment_method', instance.paymentMethod);
-  writeNotNull('phone_number', instance.phoneNumber);
+  writeNotNull('phone', instance.phone);
   val['id'] = instance.id;
   return val;
 }
