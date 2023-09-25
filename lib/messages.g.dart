@@ -1775,6 +1775,7 @@ CreateSubscriptionRequest _$CreateSubscriptionRequestFromJson(
           .map((e) =>
               CreateSubscriptionItemInline.fromJson(e as Map<String, dynamic>))
           .toList(),
+      daysUntilDue: json['days_until_due'] as int?,
     );
 
 Map<String, dynamic> _$CreateSubscriptionRequestToJson(
@@ -1799,6 +1800,7 @@ Map<String, dynamic> _$CreateSubscriptionRequestToJson(
   val['items'] = instance.items.map((e) => e.toJson()).toList();
   writeNotNull('collection_method',
       _$CollectionMethodEnumMap[instance.collectionMethod]);
+  writeNotNull('days_until_due', instance.daysUntilDue);
   return val;
 }
 
