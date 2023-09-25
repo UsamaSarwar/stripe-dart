@@ -37,6 +37,9 @@ class CreateSubscriptionRequest {
   /// A list of up to 20 subscription items, each with an attached price.
   final List<CreateSubscriptionItemInline> items;
 
+  /// Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as active. Defaults to charge_automatically.
+  final CollectionMethod? collectionMethod;
+
   CreateSubscriptionRequest({
     required this.customer,
     this.cancelAtPeriodEnd,
@@ -45,6 +48,7 @@ class CreateSubscriptionRequest {
     this.description,
     this.metadata,
     this.paymentBehavior,
+    this.collectionMethod,
     required this.items,
   });
 

@@ -1769,6 +1769,8 @@ CreateSubscriptionRequest _$CreateSubscriptionRequestFromJson(
       ),
       paymentBehavior: $enumDecodeNullable(
           _$PaymentBehaviorEnumMap, json['payment_behavior']),
+      collectionMethod: $enumDecodeNullable(
+          _$CollectionMethodEnumMap, json['collection_method']),
       items: (json['items'] as List<dynamic>)
           .map((e) =>
               CreateSubscriptionItemInline.fromJson(e as Map<String, dynamic>))
@@ -1795,6 +1797,8 @@ Map<String, dynamic> _$CreateSubscriptionRequestToJson(
   writeNotNull(
       'payment_behavior', _$PaymentBehaviorEnumMap[instance.paymentBehavior]);
   val['items'] = instance.items.map((e) => e.toJson()).toList();
+  writeNotNull('collection_method',
+      _$CollectionMethodEnumMap[instance.collectionMethod]);
   return val;
 }
 
