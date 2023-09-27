@@ -55,4 +55,17 @@ class SubscriptionResource extends Resource<Subscription> {
     );
     return Subscription.fromJson(response);
   }
+
+  Future<DataList<Subscription>> search(
+      SearchSusbcriptionsRequest request) async {
+    final map = await get(
+      'subscriptions/search',
+      queryParameters: request.toJson(),
+    );
+
+    return DataList<Subscription>.fromJson(
+      map,
+      (value) => Subscription.fromJson(value as Map<String, dynamic>),
+    );
+  }
 }

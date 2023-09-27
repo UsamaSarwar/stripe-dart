@@ -1895,6 +1895,29 @@ Map<String, dynamic> _$SearchCustomersRequestToJson(
   return val;
 }
 
+SearchSusbcriptionsRequest _$SearchSusbcriptionsRequestFromJson(
+        Map<String, dynamic> json) =>
+    SearchSusbcriptionsRequest(
+      query: json['query'] as String,
+      limit: json['limit'] as int?,
+    );
+
+Map<String, dynamic> _$SearchSusbcriptionsRequestToJson(
+    SearchSusbcriptionsRequest instance) {
+  final val = <String, dynamic>{
+    'query': instance.query,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('limit', instance.limit);
+  return val;
+}
+
 CreateAccountRequest _$CreateAccountRequestFromJson(
         Map<String, dynamic> json) =>
     CreateAccountRequest(
